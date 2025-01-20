@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Admin - Mikromovilab</title>
+    <link rel="stylesheet" href="../CSS/styless.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../imagenes/logo.png" alt="Mikromovilab Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li data-page="dashboard.html">📊 Dashboard</li>
+                    <li data-page="usuario.html">👤 Usuario</li>
+                    <li data-page="estaciones.html">📍 Estaciones</li>
+                    <li data-page="bicicletas.html">🚴 Bicicletas</li>
+                    <li data-page="mantenimiento.html">🛠️ Mantenimiento</li>
+                    <li data-page="beacons.html">📡 Beacons</li>
+                    <li data-page="alquiler.html">📜 Alquiler</li>
+                    <li data-page="inventario.html">📦 Inventario</li>
+                    <li data-page="personal.html">👥 Personal</li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="content">
+            <header class="top-bar">
+                <button id="menu-toggle" class="menu-toggle">☰</button>
+                <input type="text" placeholder="Enter keyword">
+                <div class="user-info">
+                    <img src="../imagenes/user-avatar.png" alt="User Avatar">
+                    <span>Adam Schwartz</span>
+                </div>
+            </header>
+            <div class="header-a">
+                <h1>Estación La Carolina</h1>
+            </div>
+    
+            <div class="statistics-a">
+                <div class="chart">
+                    <img src="../imagenes/caroli.jpeg" alt="Estadística de la estación" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                </div>
+            
+               
+                
+    
+                <div class="info">
+                    <div class="info-box">
+                        <img src="../imagenes/estaciones.jpeg" alt="Estación">
+                        <p><strong>Nombre de la Estación:</strong> La Carolina</p>
+                        <div class="menu">
+                         
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <img src="../imagenes/colore.jpeg" alt="Color">
+                        <p><strong>Color Característico:</strong> Azul</p>
+                        <div class="menu">
+                       
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <img src="../imagenes/alquileres.jpeg" alt="Alquileres">
+                        <p><strong>Total de Alquileres:</strong> 43 Alquileres</p>
+                        <div class="menu">
+                          
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <img src="../imagenes/bici.jpeg" alt="Beacons">
+                        <p><strong>Beacons en la Estación:</strong> 2 Beacons</p>
+                        <div class="menu">
+                          
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <img src="../imagenes/alerta.png" alt="Alertas">
+                        <p><strong>Total de Alertas:</strong> 7 Alertas</p>
+                        <div class="menu">
+                       
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <img src="../imagenes/bici.jpeg" alt="Bicicletas">
+                        <p><strong>Número de Bicicletas:</strong> 45 Bicicletas</p>
+                        <div class="menu">
+                        
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <img src="../imagenes/mantenimiento.jpeg" alt="Mantenimiento">
+                        <p><strong># Mantenimientos:</strong> 8 Mantenimientos</p>
+                        <div class="menu">
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+    
+        
+        </main>
+        <script src="../controlador/sidebarController.js"></script>
+        <script src="../controlador/userMenuController.js"></script>
+    </div>
+    
+   
+</body>
+</html>
