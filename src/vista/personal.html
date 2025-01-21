@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Admin - Mikromovilab</title>
+    <link rel="stylesheet" href="../public/css/styless.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../public/imagenes/logo.png" alt="Mikromovilab Logo">
+            </div>
+    
+            <nav>
+                <ul>
+                    <li data-page="dashboard.html">📊 Dashboard</li>
+                    <li data-page="usuario.html">👤 Usuario</li>
+                    <li data-page="estaciones.html">📍 Estaciones</li>
+                    <li data-page="bicicletas.html">🚴 Bicicletas</li>
+                    <li data-page="mantenimiento.html">🛠️ Mantenimiento</li>
+                    <li data-page="beacons.html">📡 Beacons</li>
+                    <li data-page="alquiler.html">📜 Alquiler</li>
+                    <li data-page="inventario.html">📦 Inventario</li>
+                    <li data-page="personal.html">👥 Personal</li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="content">
+            <header class="top-bar">
+                <button id="menu-toggle" class="menu-toggle">☰</button>
+                <input type="text" placeholder="Enter keyword">
+                <div class="user-info">
+                    <img src="../public/imagenes/user-avatar.png" alt="User Avatar">
+                    <span>Adam Schwartz</span>
+                </div>
+            </header>
+            <section class="user-admin">
+                <h1>Personal</h1>
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar por nombre">
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Correo Electrónico</th>
+                                <th>Télefono</th>
+                                <th>Cargo</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- La tabla se actualizará dinámicamente con JavaScript -->
+                        </tbody>
+                    </table>
+        
+                    <div class="results">
+                        <p>3 resultados encontrados: Mostrando página 1 de 100</p>
+                    </div>
+                </div>
+                <br>
+            </section>
+        
+        </main>
+        
+    </div>
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Editar Usuario</h2>
+            <form id="edit-form">
+                <label for="edit-name">Nombre:</label>
+                <input type="text" id="edit-name" required>
+                <label for="edit-email">Correo Electrónico:</label>
+                <input type="email" id="edit-email" required>
+                <label for="edit-phone">Teléfono:</label>
+                <input type="text" id="edit-phone" required>
+                <label for="edit-role">Cargo:</label>
+                <input type="text" id="edit-role" required>
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="../public/js/personal.js"></script>
+    <script src="../public/js/sidebarController.js"></script>
+    <script src="../public/js/userMenuController.js"></script>
+
+</body>
+</html>

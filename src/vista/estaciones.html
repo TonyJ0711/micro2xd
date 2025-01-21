@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Admin - Mikromovilab</title>
-    <link rel="stylesheet" href="../CSS/styless.css">
+    <title>Inventario</title>
+    <link rel="stylesheet" href="../public/css/styless.css">
 </head>
 <body>
     <div class="container">
         <aside class="sidebar">
             <div class="logo">
-                <img src="../imagenes/logo.png" alt="Mikromovilab Logo">
+                <img src="../public/imagenes/logo.png" alt="Mikromovilab Logo">
             </div>
-    
             <nav>
                 <ul>
                     <li data-page="dashboard.html">📊 Dashboard</li>
@@ -32,65 +31,63 @@
                 <button id="menu-toggle" class="menu-toggle">☰</button>
                 <input type="text" placeholder="Enter keyword">
                 <div class="user-info">
-                    <img src="../imagenes/user-avatar.png" alt="User Avatar">
+                    <img src="../public/imagenes/user-avatar.png" alt="User Avatar">
                     <span>Adam Schwartz</span>
                 </div>
             </header>
             <section class="user-admin">
-                <h1>Personal</h1>
+                <h1>Estaciones</h1>
                 <div class="search-bar">
                     <input type="text" placeholder="Buscar por nombre">
                 </div>
                 <div class="table-container">
-                    <table>
+                    <table id="stationsTable">
                         <thead>
                             <tr>
-                                <th></th>
                                 <th>Id</th>
                                 <th>Nombre</th>
-                                <th>Correo Electrónico</th>
-                                <th>Télefono</th>
-                                <th>Cargo</th>
+                                <th>Capacidad</th>
+                                <th>Ubicación</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- La tabla se actualizará dinámicamente con JavaScript -->
+                            <!-- Aquí se llenarán las estaciones dinámicamente desde JS -->
                         </tbody>
                     </table>
-        
                     <div class="results">
-                        <p>3 resultados encontrados: Mostrando página 1 de 100</p>
+                        <p id="resultsInfo">Resultados encontrados: Mostrando página 1 de 1</p>
                     </div>
                 </div>
-                <br>
             </section>
-        
         </main>
-        
     </div>
-    <div id="edit-modal" class="modal">
+
+    <!-- Modal de Edición -->
+    <div id="myModal" class="modal">
         <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Editar Usuario</h2>
-            <form id="edit-form">
-                <label for="edit-name">Nombre:</label>
-                <input type="text" id="edit-name" required>
-                <label for="edit-email">Correo Electrónico:</label>
-                <input type="email" id="edit-email" required>
-                <label for="edit-phone">Teléfono:</label>
-                <input type="text" id="edit-phone" required>
-                <label for="edit-role">Cargo:</label>
-                <input type="text" id="edit-role" required>
-                <button type="submit">Guardar</button>
+            <span id="closeModal" class="close-button">&times;</span>
+            <h2>Editar Estación</h2>
+            <form id="editStationForm">
+                <label for="stationName">Nombre:</label>
+                <input type="text" id="stationName" name="stationName" required><br><br>
+                <label for="capacity">Capacidad:</label>
+                <input type="number" id="capacity" name="capacity" required><br><br>
+                <label for="location">Ubicación:</label>
+                <input type="text" id="location" name="location" required><br><br>
+                <label for="status">Estado:</label>
+                <select id="status" name="status">
+                    <option value="active">Activo</option>
+                    <option value="inactive">Inactivo</option>
+                </select><br><br>
+                <input type="submit" value="Guardar Cambios">
             </form>
         </div>
     </div>
-    
-    <script src="../controlador/personal.js"></script>
-    <script src="../controlador/sidebarController.js"></script>
-    <script src="../controlador/userMenuController.js"></script>
 
+    <script src="../public/js/estaciones.js"></script>
+    <script src="../public/js/sidebarController.js"></script>
+    <script src="../public/js/userMenuController.js"></script>
 </body>
 </html>
