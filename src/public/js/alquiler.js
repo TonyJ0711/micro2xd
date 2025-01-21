@@ -17,6 +17,15 @@ const statusInput = document.getElementById("status");
 
 let selectedRentalId = null;
 
+// Función para escapar HTML y prevenir XSS
+function escapeHTML(str) {
+    return str.replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;")
+              .replace(/'/g, "&#039;");
+}
+
 // Cargar los datos de alquileres en la tabla
 function loadRentals() {
     rentalTableBody.innerHTML = ""; // Limpiar la tabla
@@ -26,12 +35,12 @@ function loadRentals() {
         row.dataset.id = rental.id;
 
         row.innerHTML = `
-            <td>${rental.id}</td>
-            <td>${rental.bikeBrand}</td>
-            <td>${rental.client}</td>
-            <td>${rental.rentalDate}</td>
+            <td>${escapeHTML(rental.id.toString())}</td>
+            <td>${escapeHTML(rental.bikeBrand)}</td>
+            <td>${escapeHTML(rental.client)}</td>
+            <td>${escapeHTML(rental.rentalDate)}</td>
             <td>
-                <button class="status-button ${rental.status}" onclick="toggleStatus(${rental.id})">
+                <button class="status-button ${escapeHTML(rental.status)}" onclick="toggleStatus(${rental.id})">
                     ${rental.status === 'active' ? 'Activo' : 'Devuelto'}
                 </button>
             </td>
@@ -59,14 +68,27 @@ function editRental(id) {
         editRentalForm.onsubmit = function (event) {
             event.preventDefault();
 
-            rental.bikeBrand = bikeBrandInput.value;
-            rental.client = clientInput.value;
-            rental.rentalDate = rentalDateInput.value;
-            rental.status = statusInput.value;
+            const updatedBikeBrand = bikeBrandInput.value.trim();
+            const updatedClient = clientInput.value.trim();
+            const updatedRentalDate = rentalDateInput.value.trim();
+            const updatedStatus = statusInput.value;
+
+            // Validar datos del formulario
+            if (!updatedBikeBrand || !updatedClient || !updatedRentalDate || !['active', 'returned'].includes(updatedStatus)) {
+                alert("Por favor, completa todos los campos correctamente.");
+                return;
+            }
+
+            rental.bikeBrand = updatedBikeBrand;
+            rental.client = updatedClient;
+            rental.rentalDate = updatedRentalDate;
+            rental.status = updatedStatus;
 
             closeModal();
             loadRentals();
         };
+    } else {
+        alert("Alquiler no encontrado.");
     }
 }
 
@@ -77,12 +99,17 @@ function closeModal() {
     rentalModal.style.display = "none";
 }
 
-// Eliminar alquiler
+// Eliminar alquiler con confirmación
 function deleteRental(id) {
     const index = rentals.findIndex(rental => rental.id === id);
     if (index !== -1) {
-        rentals.splice(index, 1);
-        loadRentals();
+        const confirmation = confirm("¿Estás seguro de que deseas eliminar este alquiler?");
+        if (confirmation) {
+            rentals.splice(index, 1);
+            loadRentals();
+        }
+    } else {
+        alert("Alquiler no encontrado.");
     }
 }
 
@@ -92,8 +119,16 @@ function toggleStatus(id) {
     if (rental) {
         rental.status = rental.status === 'active' ? 'returned' : 'active';
         loadRentals();
+    } else {
+        alert("Alquiler no encontrado.");
     }
 }
+
+// Manejo de errores global (opcional)
+window.onerror = function (message, source, lineno, colno, error) {
+    console.error("Error global capturado:", { message, source, lineno, colno, error });
+    alert("Se ha producido un error. Revisa la consola para más detalles.");
+};
 
 // Inicializar la carga de datos
 window.onload = loadRentals;

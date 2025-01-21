@@ -4,32 +4,45 @@ const bikes = [
     { id: 3, brand: "Giant", model: "Defy", color: "Negro", quantity: 8, location: "Almacén 3", status: "active" }
 ];
 
-// Función para cargar las bicicletas y mostrarlas en la tabla
+// Escapa posibles caracteres maliciosos para prevenir XSS
+function escapeHTML(str) {
+    return str.replace(/[&<>'"`]/g, (char) => {
+        const escapeChars = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;',
+            '`': '&#96;'
+        };
+        return escapeChars[char] || char;
+    });
+}
+
 function loadBikes() {
     console.log("Cargando bicicletas...");
     const tableBody = document.querySelector("#bikesTable tbody");
     tableBody.innerHTML = "";
 
-    // Iteramos sobre el array de bicicletas y las mostramos en la tabla
     bikes.forEach(bike => {
         console.log("Añadiendo bicicleta: ", bike);
         const row = document.createElement("tr");
 
         row.innerHTML = `
-            <td>${bike.id}</td>
-            <td>${bike.brand}</td>
-            <td>${bike.model}</td>
-            <td>${bike.color}</td>
-            <td>${bike.quantity}</td>
-            <td>${bike.location}</td>
+            <td>${escapeHTML(String(bike.id))}</td>
+            <td>${escapeHTML(bike.brand)}</td>
+            <td>${escapeHTML(bike.model)}</td>
+            <td>${escapeHTML(bike.color)}</td>
+            <td>${escapeHTML(String(bike.quantity))}</td>
+            <td>${escapeHTML(bike.location)}</td>
             <td>
-                <button class="status-button ${bike.status}" onclick="toggleStatus(${bike.id})">
+                <button class="status-button ${escapeHTML(bike.status)}" onclick="toggleStatus(${bike.id})">
                     ${bike.status === 'active' ? 'Activo' : 'Inactivo'}
                 </button>
             </td>
             <td class="actions">
                 <button class="edit" onclick="editBike(${bike.id})">✏️ Editar</button>
-                <button class="delete" onclick="deleteBike(${bike.id})">🗑️ Borrar</button>
+                <button class="delete" onclick="confirmDeleteBike(${bike.id})">🗑️ Borrar</button>
             </td>
         `;
 
@@ -37,7 +50,6 @@ function loadBikes() {
     });
 }
 
-// Función para editar una bicicleta
 function editBike(id) {
     const bike = bikes.find(bike => bike.id === id);
     if (bike) {
@@ -52,15 +64,27 @@ function editBike(id) {
 
         document.getElementById("myModal").style.display = "block";
 
-        // Configuramos la función de submit del formulario para guardar los cambios
         document.getElementById("editBikeForm").onsubmit = function (event) {
             event.preventDefault();
-            bike.brand = document.getElementById("bikeBrand").value;
-            bike.model = document.getElementById("bikeModel").value;
-            bike.color = document.getElementById("bikeColor").value;
-            bike.quantity = parseInt(document.getElementById("bikeQuantity").value, 10);
-            bike.location = document.getElementById("bikeLocation").value;
-            bike.status = document.getElementById("bikeStatus").value;
+
+            const brand = document.getElementById("bikeBrand").value.trim();
+            const model = document.getElementById("bikeModel").value.trim();
+            const color = document.getElementById("bikeColor").value.trim();
+            const quantity = parseInt(document.getElementById("bikeQuantity").value, 10);
+            const location = document.getElementById("bikeLocation").value.trim();
+            const status = document.getElementById("bikeStatus").value;
+
+            if (!brand || !model || !color || isNaN(quantity) || quantity <= 0 || !location || !["active", "inactive"].includes(status)) {
+                alert("Por favor, completa todos los campos correctamente.");
+                return;
+            }
+
+            bike.brand = brand;
+            bike.model = model;
+            bike.color = color;
+            bike.quantity = quantity;
+            bike.location = location;
+            bike.status = status;
 
             closeModal();
             loadBikes();
@@ -68,13 +92,17 @@ function editBike(id) {
     }
 }
 
-// Función para cerrar el modal de edición
 function closeModal() {
     console.log("Cerrando modal de edición.");
     document.getElementById("myModal").style.display = "none";
 }
 
-// Función para borrar una bicicleta del array
+function confirmDeleteBike(id) {
+    if (confirm("¿Estás seguro de que deseas eliminar esta bicicleta?")) {
+        deleteBike(id);
+    }
+}
+
 function deleteBike(id) {
     const index = bikes.findIndex(bike => bike.id === id);
     if (index !== -1) {
@@ -84,7 +112,6 @@ function deleteBike(id) {
     }
 }
 
-// Función para cambiar el estado de una bicicleta (activo/inactivo)
 function toggleStatus(id) {
     const bike = bikes.find(bike => bike.id === id);
     if (bike) {
@@ -94,8 +121,6 @@ function toggleStatus(id) {
     }
 }
 
-// Asignamos el evento de cerrar modal al botón de cerrar
 document.getElementById("closeModal").onclick = closeModal;
 
-// Cargamos las bicicletas cuando la página está lista
 window.onload = loadBikes;
