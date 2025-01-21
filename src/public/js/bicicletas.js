@@ -18,6 +18,25 @@ let mantenimientos = [
 // Variable global para guardar el id del objeto que estamos editando
 let currentId = null;
 
+// Función para escapar texto y prevenir XSS (Seguridad)
+function escapeHTML(str) {
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+// Función para validar campos de entrada
+function validateField(value, fieldName) {
+    if (!value || !value.trim()) {
+        alert(`El campo ${fieldName} no puede estar vacío.`);
+        return false;
+    }
+    return true;
+}
+
 // Función para renderizar las tablas
 function renderTables() {
     // Renderizar tabla de inventario
@@ -27,9 +46,9 @@ function renderTables() {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td><input type="checkbox"></td>
-            <td>${bicicleta.id}</td>
-            <td>${bicicleta.marca}</td>
-            <td>${bicicleta.total}</td>
+            <td>${escapeHTML(bicicleta.id)}</td> <!-- Escapado para prevenir XSS -->
+            <td>${escapeHTML(bicicleta.marca)}</td>
+            <td>${escapeHTML(bicicleta.total)}</td>
             <td>
                 <button class="edit" onclick="openEditModal('bicicleta', ${bicicleta.id})">Editar</button>
                 <button class="delete" onclick="deleteBicicleta(${bicicleta.id})">Eliminar</button>
@@ -45,12 +64,12 @@ function renderTables() {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td><input type="checkbox"></td>
-            <td>${alquiler.id}</td>
-            <td>${alquiler.tipo}</td>
-            <td>${alquiler.cliente}</td>
-            <td>${alquiler.fechaAlquiler}</td>
-            <td>${alquiler.disponibles}</td>
-            <td>${alquiler.enUso}</td>
+            <td>${escapeHTML(alquiler.id)}</td>
+            <td>${escapeHTML(alquiler.tipo)}</td>
+            <td>${escapeHTML(alquiler.cliente)}</td>
+            <td>${escapeHTML(alquiler.fechaAlquiler)}</td>
+            <td>${escapeHTML(alquiler.disponibles)}</td>
+            <td>${escapeHTML(alquiler.enUso)}</td>
             <td>
                 <button class="edit" onclick="openEditModal('alquiler', ${alquiler.id})">Editar</button>
                 <button class="delete" onclick="deleteAlquiler(${alquiler.id})">Eliminar</button>
@@ -66,10 +85,10 @@ function renderTables() {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td><input type="checkbox"></td>
-            <td>${mantenimiento.id}</td>
-            <td>${mantenimiento.tipo}</td>
-            <td>${mantenimiento.mecanico}</td>
-            <td>${mantenimiento.fechaEntrega}</td>
+            <td>${escapeHTML(mantenimiento.id)}</td>
+            <td>${escapeHTML(mantenimiento.tipo)}</td>
+            <td>${escapeHTML(mantenimiento.mecanico)}</td>
+            <td>${escapeHTML(mantenimiento.fechaEntrega)}</td>
             <td>
                 <button class="edit" onclick="openEditModal('mantenimiento', ${mantenimiento.id})">Editar</button>
                 <button class="delete" onclick="deleteMantenimiento(${mantenimiento.id})">Eliminar</button>
@@ -85,6 +104,10 @@ function openEditModal(tipo, id) {
 
     if (tipo === 'alquiler') {
         const alquiler = alquileres.find(a => a.id === id);
+        if (!alquiler) { // Verificar existencia
+            alert('Alquiler no encontrado.');
+            return;
+        }
         document.getElementById('edit-tipo').value = alquiler.tipo;
         document.getElementById('edit-cliente').value = alquiler.cliente;
         document.getElementById('edit-fecha').value = alquiler.fechaAlquiler;
@@ -95,6 +118,10 @@ function openEditModal(tipo, id) {
 
     if (tipo === 'mantenimiento') {
         const mantenimiento = mantenimientos.find(m => m.id === id);
+        if (!mantenimiento) { // Verificar existencia
+            alert('Mantenimiento no encontrado.');
+            return;
+        }
         document.getElementById('edit-mantenimiento-tipo').value = mantenimiento.tipo;
         document.getElementById('edit-mecanico').value = mantenimiento.mecanico;
         document.getElementById('edit-fecha-entrega').value = mantenimiento.fechaEntrega;
@@ -103,6 +130,10 @@ function openEditModal(tipo, id) {
 
     if (tipo === 'bicicleta') {
         const bicicleta = bicicletas.find(b => b.id === id);
+        if (!bicicleta) { // Verificar existencia
+            alert('Bicicleta no encontrada.');
+            return;
+        }
         document.getElementById('edit-marca').value = bicicleta.marca;
         document.getElementById('edit-total').value = bicicleta.total;
         openModal('modal-editar-bicicleta');
@@ -123,11 +154,12 @@ function closeModal(modalId) {
 document.getElementById('form-editar-alquiler').addEventListener('submit', function(event) {
     event.preventDefault();
     const alquiler = alquileres.find(a => a.id === currentId);
-    alquiler.tipo = document.getElementById('edit-tipo').value;
-    alquiler.cliente = document.getElementById('edit-cliente').value;
-    alquiler.fechaAlquiler = document.getElementById('edit-fecha').value;
-    alquiler.disponibles = document.getElementById('edit-disponibles').value;
-    alquiler.enUso = document.getElementById('edit-enUso').value;
+    if (!alquiler) return; // Validación adicional
+    alquiler.tipo = escapeHTML(document.getElementById('edit-tipo').value);
+    alquiler.cliente = escapeHTML(document.getElementById('edit-cliente').value);
+    alquiler.fechaAlquiler = escapeHTML(document.getElementById('edit-fecha').value);
+    alquiler.disponibles = escapeHTML(document.getElementById('edit-disponibles').value);
+    alquiler.enUso = escapeHTML(document.getElementById('edit-enUso').value);
     renderTables();
     closeModal('modal-editar-alquiler');
 });
@@ -136,9 +168,10 @@ document.getElementById('form-editar-alquiler').addEventListener('submit', funct
 document.getElementById('form-editar-mantenimiento').addEventListener('submit', function(event) {
     event.preventDefault();
     const mantenimiento = mantenimientos.find(m => m.id === currentId);
-    mantenimiento.tipo = document.getElementById('edit-mantenimiento-tipo').value;
-    mantenimiento.mecanico = document.getElementById('edit-mecanico').value;
-    mantenimiento.fechaEntrega = document.getElementById('edit-fecha-entrega').value;
+    if (!mantenimiento) return; // Validación adicional
+    mantenimiento.tipo = escapeHTML(document.getElementById('edit-mantenimiento-tipo').value);
+    mantenimiento.mecanico = escapeHTML(document.getElementById('edit-mecanico').value);
+    mantenimiento.fechaEntrega = escapeHTML(document.getElementById('edit-fecha-entrega').value);
     renderTables();
     closeModal('modal-editar-mantenimiento');
 });
@@ -147,24 +180,28 @@ document.getElementById('form-editar-mantenimiento').addEventListener('submit', 
 document.getElementById('form-editar-bicicleta').addEventListener('submit', function(event) {
     event.preventDefault();
     const bicicleta = bicicletas.find(b => b.id === currentId);
-    bicicleta.marca = document.getElementById('edit-marca').value;
-    bicicleta.total = document.getElementById('edit-total').value;
+    if (!bicicleta) return; // Validación adicional
+    bicicleta.marca = escapeHTML(document.getElementById('edit-marca').value);
+    bicicleta.total = escapeHTML(document.getElementById('edit-total').value);
     renderTables();
     closeModal('modal-editar-bicicleta');
 });
 
 // Funciones para eliminar
 function deleteBicicleta(id) {
+    if (!confirm('¿Está seguro de que desea eliminar esta bicicleta?')) return; // Confirmación
     bicicletas = bicicletas.filter(b => b.id !== id);
     renderTables();
 }
 
 function deleteAlquiler(id) {
+    if (!confirm('¿Está seguro de que desea eliminar este alquiler?')) return; // Confirmación
     alquileres = alquileres.filter(a => a.id !== id);
     renderTables();
 }
 
 function deleteMantenimiento(id) {
+    if (!confirm('¿Está seguro de que desea eliminar este mantenimiento?')) return; // Confirmación
     mantenimientos = mantenimientos.filter(m => m.id !== id);
     renderTables();
 }

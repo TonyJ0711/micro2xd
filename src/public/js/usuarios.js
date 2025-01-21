@@ -5,6 +5,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const editForm = document.getElementById('editForm');
     let currentCard = null;
 
+    // Escapa posibles caracteres maliciosos para prevenir XSS
+    function escapeHTML(str) {
+        return str.replace(/[&<>'"`]/g, (char) => {
+            const escapeChars = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;',
+                '`': '&#96;'
+            };
+            return escapeChars[char] || char;
+        });
+    }
+
     // Editar usuario
     userCards.addEventListener('click', (event) => {
         if (event.target.classList.contains('edit')) {
@@ -26,10 +41,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Guardar cambios del usuario
     editForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        currentCard.querySelector('h3').textContent = document.getElementById('editName').value;
-        currentCard.querySelector('p:nth-child(2)').textContent = `Email: ${document.getElementById('editEmail').value}`;
-        currentCard.querySelector('p:nth-child(3)').textContent = `No. de celular: ${document.getElementById('editPhone').value}`;
-        currentCard.querySelector('p:nth-child(4)').textContent = `Fecha de nacimiento: ${document.getElementById('editBirthdate').value}`;
+        currentCard.querySelector('h3').textContent = escapeHTML(document.getElementById('editName').value);
+        currentCard.querySelector('p:nth-child(2)').textContent = `Email: ${escapeHTML(document.getElementById('editEmail').value)}`;
+        currentCard.querySelector('p:nth-child(3)').textContent = `No. de celular: ${escapeHTML(document.getElementById('editPhone').value)}`;
+        currentCard.querySelector('p:nth-child(4)').textContent = `Fecha de nacimiento: ${escapeHTML(document.getElementById('editBirthdate').value)}`;
         editModal.style.display = 'none';
     });
 
@@ -47,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const phone = card.querySelector('p:nth-child(3)').textContent.split(': ')[1];
             const birthdate = card.querySelector('p:nth-child(4)').textContent.split(': ')[1];
 
-            const confirmation = confirm(`¿Estás seguro de eliminar este usuario?\n\nNombre: ${name}\nEmail: ${email}\nNo. de celular: ${phone}\nFecha de nacimiento: ${birthdate}`);
+            const confirmation = confirm(`¿Estás seguro de eliminar este usuario?\n\nNombre: ${escapeHTML(name)}\nEmail: ${escapeHTML(email)}\nNo. de celular: ${escapeHTML(phone)}\nFecha de nacimiento: ${escapeHTML(birthdate)}`);
             if (confirmation) {
                 card.remove();
                 alert('Usuario eliminado correctamente.');
