@@ -1,79 +1,97 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const userCards = document.getElementById('userCards');
-    const editModal = document.getElementById('editModal');
-    const cancelEdit = document.getElementById('cancelEdit');
-    const editForm = document.getElementById('editForm');
-    let currentCard = null;
+    const userTable = document.querySelector(".styled-table tbody");
+    const editModal = document.getElementById("editUserModal");
+    const deleteModal = document.getElementById("deleteUserModal");
+    const editForm = document.getElementById("editUserForm");
+    let currentRow = null;
 
-    // Escapa posibles caracteres maliciosos para prevenir XSS
-    function escapeHTML(str) {
-        return str.replace(/[&<>'"`]/g, (char) => {
-            const escapeChars = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                "'": '&#39;',
-                '"': '&quot;',
-                '`': '&#96;'
-            };
-            return escapeChars[char] || char;
-        });
+    // Campos del modal de edición
+    const editUserName = document.getElementById("editUserName");
+    const editUserEmail = document.getElementById("editUserEmail");
+    const editUserPhone = document.getElementById("editUserPhone");
+    const editUserDob = document.getElementById("editUserDob");
+    const editUserStatus = document.getElementById("editUserStatus");
+
+    // Función para abrir el modal
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.style.display = "flex";
     }
 
-    // Editar usuario
-    userCards.addEventListener('click', (event) => {
-        if (event.target.classList.contains('edit')) {
-            currentCard = event.target.closest('.user-card');
-            const name = currentCard.querySelector('h3').textContent;
-            const email = currentCard.querySelector('p:nth-child(2)').textContent.split(': ')[1];
-            const phone = currentCard.querySelector('p:nth-child(3)').textContent.split(': ')[1];
-            const birthdate = currentCard.querySelector('p:nth-child(4)').textContent.split(': ')[1];
+    // Función para cerrar el modal
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.style.display = "none";
+    }
 
-            document.getElementById('editName').value = name;
-            document.getElementById('editEmail').value = email;
-            document.getElementById('editPhone').value = phone;
-            document.getElementById('editBirthdate').value = birthdate;
+    // Evento para manejar edición
+    userTable.addEventListener("click", function (event) {
+        if (event.target.classList.contains("edit")) {
+            currentRow = event.target.closest("tr");
+            const cells = currentRow.querySelectorAll("td");
 
-            editModal.style.display = 'block';
+            // Rellenar el formulario del modal
+            editUserName.value = cells[2].textContent.trim();
+            editUserEmail.value = cells[3].textContent.trim();
+            editUserPhone.value = cells[4].textContent.trim();
+            editUserDob.value = cells[5].textContent.trim();
+            editUserStatus.value = cells[6].textContent.trim();
+
+            openModal("editUserModal");
+        }
+
+        if (event.target.classList.contains("delete")) {
+            currentRow = event.target.closest("tr");
+            openModal("deleteUserModal");
         }
     });
 
-    // Guardar cambios del usuario
-    editForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        currentCard.querySelector('h3').textContent = escapeHTML(document.getElementById('editName').value);
-        currentCard.querySelector('p:nth-child(2)').textContent = `Email: ${escapeHTML(document.getElementById('editEmail').value)}`;
-        currentCard.querySelector('p:nth-child(3)').textContent = `No. de celular: ${escapeHTML(document.getElementById('editPhone').value)}`;
-        currentCard.querySelector('p:nth-child(4)').textContent = `Fecha de nacimiento: ${escapeHTML(document.getElementById('editBirthdate').value)}`;
-        editModal.style.display = 'none';
+    // Guardar cambios
+    document.querySelector(".save-btn").addEventListener("click", function () {
+        if (currentRow) {
+            const cells = currentRow.querySelectorAll("td");
+
+            // Actualizar los datos de la fila
+            cells[2].textContent = editUserName.value;
+            cells[3].textContent = editUserEmail.value;
+            cells[4].textContent = editUserPhone.value;
+            cells[5].textContent = editUserDob.value;
+            const newStatus = editUserStatus.value;
+            cells[6].textContent = newStatus;
+
+            // Actualizar el color del botón de estado según el nuevo valor
+            const statusButton = cells[6].querySelector(".badge");
+            if (newStatus === "Activo") {
+                statusButton.classList.remove("inactive");
+                statusButton.classList.add("active");
+                statusButton.textContent = "Activo";
+            } else {
+                statusButton.classList.remove("active");
+                statusButton.classList.add("inactive");
+                statusButton.textContent = "Inactivo";
+            }
+
+            alert("Usuario editado correctamente.");
+            closeModal("editUserModal");
+        }
+    });
+
+    // Confirmar eliminación
+    document.querySelector(".confirm-btn").addEventListener("click", function () {
+        if (currentRow) {
+            currentRow.remove();
+            alert("Usuario eliminado correctamente.");
+            closeModal("deleteUserModal");
+        }
     });
 
     // Cancelar edición
-    cancelEdit.addEventListener('click', () => {
-        editModal.style.display = 'none';
+    document.getElementById("cancelEditBtn").addEventListener("click", function () {
+        closeModal("editUserModal");
     });
 
-    // Eliminar usuario
-    userCards.addEventListener('click', (event) => {
-        if (event.target.classList.contains('delete')) {
-            const card = event.target.closest('.user-card');
-            const name = card.querySelector('h3').textContent;
-            const email = card.querySelector('p:nth-child(2)').textContent.split(': ')[1];
-            const phone = card.querySelector('p:nth-child(3)').textContent.split(': ')[1];
-            const birthdate = card.querySelector('p:nth-child(4)').textContent.split(': ')[1];
-
-            const confirmation = confirm(`¿Estás seguro de eliminar este usuario?\n\nNombre: ${escapeHTML(name)}\nEmail: ${escapeHTML(email)}\nNo. de celular: ${escapeHTML(phone)}\nFecha de nacimiento: ${escapeHTML(birthdate)}`);
-            if (confirmation) {
-                card.remove();
-                alert('Usuario eliminado correctamente.');
-            }
-        }
+    // Cancelar eliminación
+    document.getElementById("cancelDeleteBtn").addEventListener("click", function () {
+        closeModal("deleteUserModal");
     });
-
-    // Cerrar modal si se hace clic fuera de él
-    window.onclick = function (event) {
-        if (event.target == editModal) {
-            editModal.style.display = "none";
-        }
-    };
 });

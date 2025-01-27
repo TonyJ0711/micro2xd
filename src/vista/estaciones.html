@@ -29,61 +29,76 @@
         <main class="content">
             <header class="top-bar">
                 <button id="menu-toggle" class="menu-toggle">☰</button>
-                <input type="text" placeholder="Enter keyword">
                 <div class="user-info">
                     <img src="../public/imagenes/user-avatar.png" alt="User Avatar">
                     <span>Adam Schwartz</span>
                 </div>
             </header>
             <section class="user-admin">
-                <h1>Estaciones</h1>
+                <h1>Inventario de Bicicletas</h1>
                 <div class="search-bar">
-                    <input type="text" placeholder="Buscar por nombre">
+                    <input type="text" placeholder="Buscar por marca o modelo">
                 </div>
-                <div class="table-container">
-                    <table id="stationsTable">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Nombre</th>
-                                <th>Capacidad</th>
-                                <th>Ubicación</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Aquí se llenarán las estaciones dinámicamente desde JS -->
-                        </tbody>
-                    </table>
-                    <div class="results">
-                        <p id="resultsInfo">Resultados encontrados: Mostrando página 1 de 1</p>
+                <div class="search-bar">
+                    <div class="table-container">
+                        <table id="stationsTable" class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Capacidad</th>
+                                    <th>Ubicación</th>
+                                    <th>Estado</th>
+                                    <th>
+                                        <div class="acciones-label">Acciones</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Aquí se llenarán las estaciones dinámicamente desde JS -->
+                            </tbody>
+                        </table>
+                        <div class="results pagination-results">
+                            <p id="resultsInfo">Resultados encontrados: Mostrando página 1 de 1</p>
+                        </div>
+                    </div>
+
+                    <!-- Modal de Edición -->
+                    <div id="myModal" class="modal hidden">
+                        <div class="modal-content">
+                            <span id="closeModal" class="close-button">&times;</span>
+                            <h2>Editar Estación</h2>
+                            <form id="editStationForm">
+                                <label for="stationName">Nombre:</label>
+                                <input type="text" id="stationName" required><br><br>
+                                <label for="capacity">Capacidad:</label>
+                                <input type="number" id="capacity" required><br><br>
+                                <label for="location">Ubicación:</label>
+                                <input type="text" id="location" required><br><br>
+                                <label for="status">Estado:</label>
+                                <select id="status">
+                                    <option value="active">Activo</option>
+                                    <option value="inactive">Inactivo</option>
+                                </select><br><br>
+                                <button type="submit" class="save-btn">Guardar Cambios</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Modal de Confirmación de Eliminación -->
+                    <div id="deleteModal" class="modal hidden">
+                        <div class="modal-content">
+                            <span id="closeDeleteModal" class="close-button">&times;</span>
+                            <h2>¿Estás seguro de que deseas eliminar esta estación?</h2>
+                            <div class="modal-actions">
+                                <button id="confirmDelete" class="confirm-btn">Eliminar</button>
+                                <button id="cancelDelete" class="cancel-btn">Cancelar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
         </main>
-    </div>
-
-    <!-- Modal de Edición -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span id="closeModal" class="close-button">&times;</span>
-            <h2>Editar Estación</h2>
-            <form id="editStationForm">
-                <label for="stationName">Nombre:</label>
-                <input type="text" id="stationName" name="stationName" required><br><br>
-                <label for="capacity">Capacidad:</label>
-                <input type="number" id="capacity" name="capacity" required><br><br>
-                <label for="location">Ubicación:</label>
-                <input type="text" id="location" name="location" required><br><br>
-                <label for="status">Estado:</label>
-                <select id="status" name="status">
-                    <option value="active">Activo</option>
-                    <option value="inactive">Inactivo</option>
-                </select><br><br>
-                <input type="submit" value="Guardar Cambios">
-            </form>
-        </div>
     </div>
 
     <script src="../public/js/estaciones.js"></script>
