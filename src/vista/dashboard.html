@@ -18,7 +18,7 @@
                     <li data-page="usuario.html">👤 Usuario</li>
                     <li data-page="estaciones.html">📍 Estaciones</li>
                     <li data-page="bicicletas.html">🚴 Bicicletas</li>
-                    <li data-page="mantenimiento.html">🚰 Mantenimiento</li>
+                    <li data-page="mantenimiento.html">🛠️ Mantenimiento</li>
                     <li data-page="beacons.html">📡 Beacons</li>
                     <li data-page="alquiler.html">📜 Alquiler</li>
                     <li data-page="inventario.html">📦 Inventario</li>
@@ -35,125 +35,78 @@
                     <span>Adam Schwartz</span>
                 </div>
             </header>
-            <section class="user-admin">
-                <h1>Estacion</h1>
-                <div class="search-bar">
-                    <input type="text" placeholder="Buscar por nombre">
+            <div class="header-a">
+                <h1>Estación La Carolina</h1>
+            </div>
+    
+            <div class="statistics-a">
+                <div class="chart">
+                    <img src="../public/imagenes/caroli.jpeg" alt="Estadística de la estación" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                 </div>
-
-                <!-- Tabla dinámica -->
-                <div class="table-dashboard">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Estación</th>
-                                <th>Color</th>
-                                <th>Total de Alquileres</th>
-                                <th>Número de Bicicletas</th>
-                                <th>Numero Beacons</th>
-                                <th>Numero Alertas</th>
-                                <th>Mantenimiento</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="table-row">
-                                <td>
-                                    <img src="../public/imagenes/caroli.jpeg" alt="Icon" class="table-img">
-                                </td>                            
-                                <td>Carolina</td>
-                                <td>Azul</td>
-                                <td>Alquiladas 43</td>
-                                <td>Total bicicletas 45</td>
-                                <td>Beacons 2</td>
-                                <td>Total alertas 7</td>
-                                <td>Realizados 8</td>
-                                <td class="action-buttons">
-                                    <button class="btn btn-edit">Editar</button>
-                                    <button class="btn btn-delete" onclick="deleteStation(1)">Eliminar</button>
-                                </td>
-                            </tr>
-                            <tr class="table-row">
-                                <td>
-                                    <img src="../public/imagenes/caroli.jpeg" alt="Icon" class="table-img">
-                                </td>                            
-                                <td>Ejido</td>
-                                <td>Verde</td>
-                                <td>Alquiladas 50</td>
-                                <td>Total bicicletas 55</td>
-                                <td>Beacons 3</td>
-                                <td>Total alertas 5</td>
-                                <td>Realizados 1</td>
-                                <td class="action-buttons">
-                                    <button class="btn btn-edit">Editar</button>
-                                    <button class="btn btn-delete" onclick="deleteStation(2)">Eliminar</button>
-                                </td>
-                            </tr>
-                            <tr class="table-row">
-                                <td>
-                                    <img src="../public/imagenes/caroli.jpeg" alt="Icon" class="table-img">
-                                </td>                            
-                                <td>Alameda</td>
-                                <td>Rojo</td>
-                                <td>Alquiladas 30</td>
-                                <td>Total bicicletas 40</td>
-                                <td>Beacons 1</td>
-                                <td>Total alertas 2</td>
-                                <td>Realizados 6</td>
-                                <td class="action-buttons">
-                                    <button class="btn btn-edit">Editar</button>
-                                    <button class="btn btn-delete" onclick="deleteStation(3)">Eliminar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Modal de Edición -->
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-                        <span id="closeModal" class="close-button">&times;</span>
-                        <h2>Editar Estación</h2>
-                        <form id="editStationForm">
-                            <label for="stationName">Nombre:</label>
-                            <input type="text" id="stationName" name="stationName" required><br><br>
-                            <label for="stationColor">Color:</label>
-                            <input type="text" id="stationColor" name="stationColor" required><br><br>
-                            <label for="totalRentals">Total de Alquileres:</label>
-                            <input type="number" id="totalRentals" name="totalRentals" required><br><br>
-                            <label for="totalBikes">Número de Bicicletas:</label>
-                            <input type="number" id="totalBikes" name="totalBikes" required><br><br>
-                            <label for="totalBeacons">Número de Beacons:</label>
-                            <input type="number" id="totalBeacons" name="totalBeacons" required><br><br>
-                            <label for="totalAlerts">Número de Alertas:</label>
-                            <input type="number" id="totalAlerts" name="totalAlerts" required><br><br>
-                            <label for="maintenance">Mantenimiento:</label>
-                            <input type="number" id="maintenance" name="maintenance" required><br><br>
-                            <input type="submit" value="Guardar Cambios">
-                        </form>
+            
+               
+                
+    
+                <div class="info">
+                    <div class="info-box">
+                        <img src="../public/imagenes/estaciones.jpeg" alt="Estación">
+                        <p><strong>Nombre de la Estación:</strong> La Carolina</p>
+                        <div class="menu">
+                         
+                        </div>
                     </div>
-                </div>
-
-                <!-- Modal de Confirmación de Eliminación -->
-                <div id="deleteModal" class="modal hidden">
-                    <div class="modal-content">
-                        <span id="closeDeleteModal" class="close-button">&times;</span>
-                        <h2>¿Estás seguro de que deseas eliminar esta estación?</h2>
-                        <div class="modal-actions">
-                            <button id="confirmDelete" class="confirm-btn">Eliminar</button>
-                            <button id="cancelDelete" class="cancel-btn">Cancelar</button>
+                    <div class="info-box">
+                        <img src="../public/imagenes/colore.jpeg" alt="Color">
+                        <p><strong>Color Característico:</strong> Azul</p>
+                        <div class="menu">
+                       
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <img src="../public/imagenes/alquileres.jpeg" alt="Alquileres">
+                        <p><strong>Total de Alquileres:</strong> 43 Alquileres</p>
+                        <div class="menu">
+                          
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <img src="../public/imagenes/bici.jpeg" alt="Beacons">
+                        <p><strong>Beacons en la Estación:</strong> 2 Beacons</p>
+                        <div class="menu">
+                          
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <img src="../public/imagenes/alerta.png" alt="Alertas">
+                        <p><strong>Total de Alertas:</strong> 7 Alertas</p>
+                        <div class="menu">
+                       
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <img src="../public/imagenes/bici.jpeg" alt="Bicicletas">
+                        <p><strong>Número de Bicicletas:</strong> 45 Bicicletas</p>
+                        <div class="menu">
+                        
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <img src="../public/imagenes/mantenimiento.jpeg" alt="Mantenimiento">
+                        <p><strong># Mantenimientos:</strong> 8 Mantenimientos</p>
+                        <div class="menu">
+                          
                         </div>
                     </div>
                 </div>
-
-            </section>
-
-            <script src="../public/js/sidebarController.js"></script>
-            <script src="../public/js/userMenuController.js"></script>
-            <script src="../public/js/dashboard.js"></script>
-            <script src="../public/js/estaciones.js"></script> <!-- Nuevo archivo JS para la lógica -->
+            </div>
+            
+    
+        
         </main>
+        <script src="../public/js/sidebarController.js"></script>
+        <script src="../public/js/userMenuController.js"></script>
     </div>
+    
+   
 </body>
 </html>
