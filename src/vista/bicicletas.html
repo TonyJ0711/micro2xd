@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bicicletas</title>
     <link rel="stylesheet" href="../public/css/styless.css">
+    <link rel="stylesheet" href="../public/css/modales.css">
 </head>
 <body>
     <div class="container">
@@ -108,24 +109,26 @@
     </div>
 
     <!-- Modal para Editar Bicicleta -->
-<div id="modal-editar-bicicleta" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('modal-editar-bicicleta')">&times;</span>
-        <h2>Editar Bicicleta</h2>
-        <form id="form-editar-bicicleta">
-            <label for="edit-marca">Marca:</label>
-            <input type="text" id="edit-marca" name="marca" required><br>
-            <label for="edit-total">Total:</label>
-            <input type="number" id="edit-total" name="total" required><br>
-            <button type="submit">Guardar cambios</button>
-        </form>
+    <div id="modal-editar-bicicleta" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal-editar-bicicleta')">&times;</span>
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/010/570/454/small_2x/bike-with-wrench-repair-concept-silhouette-icon-bicycle-service-glyph-pictogram-mechanic-workshop-for-cycle-transport-logo-isolated-illustration-vector.jpg" alt="Imagen de Edición" class="modal-image">
+            <h2>Editar Bicicleta</h2>
+            <form id="form-editar-bicicleta">
+                <label for="edit-marca">Marca:</label>
+                <input type="text" id="edit-marca" name="marca" required><br>
+                <label for="edit-total">Total:</label>
+                <input type="number" id="edit-total" name="total" required><br>
+                <button type="submit">Guardar cambios</button>
+            </form>
+        </div>
     </div>
-</div>
 
     <!-- Modal para Editar Alquiler -->
     <div id="modal-editar-alquiler" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('modal-editar-alquiler')">&times;</span>
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/010/570/454/small_2x/bike-with-wrench-repair-concept-silhouette-icon-bicycle-service-glyph-pictogram-mechanic-workshop-for-cycle-transport-logo-isolated-illustration-vector.jpg" alt="Imagen de Edición" class="modal-image">
             <h2>Editar Alquiler</h2>
             <form id="form-editar-alquiler">
                 <label for="edit-tipo">Tipo:</label>
@@ -147,6 +150,7 @@
     <div id="modal-editar-mantenimiento" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('modal-editar-mantenimiento')">&times;</span>
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/010/570/454/small_2x/bike-with-wrench-repair-concept-silhouette-icon-bicycle-service-glyph-pictogram-mechanic-workshop-for-cycle-transport-logo-isolated-illustration-vector.jpg" alt="Imagen de Edición" class="modal-image">
             <h2>Editar Mantenimiento</h2>
             <form id="form-editar-mantenimiento">
                 <label for="edit-mantenimiento-tipo">Tipo:</label>

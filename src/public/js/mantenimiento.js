@@ -5,21 +5,6 @@ const mantenimientoData = [
     { id: 3, fecha: "12-01-2025", tipo: "Mantenimiento de cadena", estacionId: "125", descripcion: "Cadena rota" },
 ];
 
-// Función para escapar caracteres maliciosos y prevenir XSS
-function escapeHTML(str) {
-    return str.replace(/[&<>'"`]/g, (char) => {
-        const escapeChars = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            "'": '&#39;',
-            '"': '&quot;',
-            '`': '&#96;'
-        };
-        return escapeChars[char] || char;
-    });
-}
-
 // Función para cargar los datos en la tabla
 function loadTable() {
     const tableBody = document.querySelector('#mantenimiento-table tbody');
@@ -29,14 +14,14 @@ function loadTable() {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td><input type="checkbox"></td>
-            <td>${escapeHTML(String(mantenimiento.id))}</td>
-            <td>${escapeHTML(mantenimiento.fecha)}</td>
-            <td>${escapeHTML(mantenimiento.tipo)}</td>
-            <td>${escapeHTML(mantenimiento.estacionId)}</td>
-            <td>${escapeHTML(mantenimiento.descripcion)}</td>
+            <td>${mantenimiento.id}</td>
+            <td>${mantenimiento.fecha}</td>
+            <td>${mantenimiento.tipo}</td>
+            <td>${mantenimiento.estacionId}</td>
+            <td>${mantenimiento.descripcion}</td>
             <td class="actions">
-                <button class="edit" data-id="${escapeHTML(String(mantenimiento.id))}">✏️ Editar</button>
-                <button class="delete" data-id="${escapeHTML(String(mantenimiento.id))}">🗑️ Eliminar</button>
+                <button class="edit" data-id="${mantenimiento.id}">✏️ Editar</button>
+                <button class="delete" data-id="${mantenimiento.id}">🗑️ Eliminar</button>
             </td>
         `;
         tableBody.appendChild(row);
@@ -58,11 +43,11 @@ function openEditModal(event) {
     const mantenimiento = mantenimientoData.find(item => item.id == mantenimientoId);
 
     if (mantenimiento) {
-        document.getElementById('edit-id').value = escapeHTML(String(mantenimiento.id));
-        document.getElementById('edit-date').value = escapeHTML(mantenimiento.fecha);
-        document.getElementById('edit-type').value = escapeHTML(mantenimiento.tipo);
-        document.getElementById('edit-station-id').value = escapeHTML(mantenimiento.estacionId);
-        document.getElementById('edit-description').value = escapeHTML(mantenimiento.descripcion);
+        document.getElementById('edit-id').value = mantenimiento.id;
+        document.getElementById('edit-date').value = mantenimiento.fecha;
+        document.getElementById('edit-type').value = mantenimiento.tipo;
+        document.getElementById('edit-station-id').value = mantenimiento.estacionId;
+        document.getElementById('edit-description').value = mantenimiento.descripcion;
 
         // Mostrar el modal
         document.getElementById('edit-modal').style.display = 'block';
@@ -70,7 +55,7 @@ function openEditModal(event) {
 }
 
 // Función para cerrar el modal
-document.querySelector('.close-button').addEventListener('click', () => {
+document.getElementById('close-modal').addEventListener('click', () => {
     document.getElementById('edit-modal').style.display = 'none';
 });
 

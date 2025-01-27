@@ -1,0 +1,246 @@
+/* Estilo básico para los botones principales */
+button {
+    background-color: #28a745; /* Verde */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+button:hover {
+    background-color: #7f8c8d; /* Gris */
+}
+
+/* Efecto de rotación y escala en los botones al hacer clic */
+button:active {
+    animation: rotateScale 0.5s ease;
+}
+
+@keyframes rotateScale {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        transform: scale(0.9) rotate(15deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* Estilo específico para botones de eliminación */
+button.delete {
+    background-color: #e74c3c;
+}
+
+button.delete:hover {
+    background-color: #c0392b;
+}
+
+/* Estilo específico para botones de edición */
+button.edit {
+    background-color: #20d19c;
+}
+
+button.edit:hover {
+    background-color: #1bdb82;
+}
+
+/* Estilo básico para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeInBackground 0.4s ease;
+}
+
+/* Animación de aparición del fondo */
+@keyframes fadeInBackground {
+    0% {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    100% {
+        background-color: rgba(0, 0, 0, 0.904);
+    }
+}
+
+/* Estilo del contenido del modal */
+.modal-content {
+    background: linear-gradient(135deg, #8a9bc9, #ffffff);
+    padding: 40px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    text-align: center;
+    color: #333;
+    transform: scale(0.95);
+    animation: fadeInScale 0.5s ease forwards;
+}
+
+/* Animación de desvanecimiento y zoom */
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Estilo para la imagen arriba del título */
+.modal-content .modal-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    object-fit: cover;
+    border: 3px solid #000000;
+}
+
+/* Modal Header */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f1f1f1;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+/* Título del modal */
+.modal-content h2 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Estilo de los botones dentro del modal */
+.modal-content button {
+    padding: 12px 24px;
+    margin: 12px 5px;
+    border-radius: 30px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón guardar con un toque moderno */
+.modal-content button.save {
+    background-color: #1abc9c;
+    color: white;
+}
+
+.modal-content button.save:hover {
+    background-color: #16a085;
+    transform: translateY(-4px);
+}
+
+/* Botón cancelar con estilo */
+.modal-content button.cancel {
+    background-color: #e67e22;
+    color: white;
+}
+
+.modal-content button.cancel:hover {
+    background-color: #d35400;
+    transform: translateY(-4px);
+}
+
+/* Estilo del botón de cerrar (la X) */
+.modal .close {
+    position: absolute;
+    top: 20px; /* Ajusta la distancia desde la parte superior */
+    right: 20px; /* Alineación a la derecha */
+    font-size: 30px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal .close:hover {
+    color: #f31212;
+}
+
+/* Estilo de los inputs dentro del modal */
+.modal-content label {
+    display: inline-block;
+    width: 40%; /* Ancho fijo para las etiquetas */
+    text-align: left;
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="number"],
+.modal-content input[type="date"] {
+    display: inline-block;
+    width: 50%; /* Tamaño reducido */
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    background-color: #f7f7f7;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    vertical-align: middle; /* Alineación con el texto */
+}
+
+/* Efecto de enfoque en los inputs */
+.modal-content input:focus {
+    border-color: #1abc9c;
+    background-color: #ffffff;
+    outline: none;
+}
+
+/* Alineación horizontal de etiquetas e inputs */
+.modal-content form > label,
+.modal-content form > input {
+    margin-bottom: 15px;
+}
+
+/* Espaciado general entre filas */
+.modal-content form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.modal-content .save {
+    background-color: #1abc9c; /* Verde brillante */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    display: block;
+    margin-left: auto;
+    margin-right: auto; /* Centra el botón horizontalmente */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
