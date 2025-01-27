@@ -19,9 +19,10 @@ function escapeHTML(str) {
     });
 }
 
+// Cargar las estaciones en la tabla
 function loadStations() {
     const tableBody = document.querySelector("#stationsTable tbody");
-    tableBody.innerHTML = "";
+    tableBody.innerHTML = ""; // Limpiar tabla
 
     stations.forEach(station => {
         const row = document.createElement("tr");
@@ -38,7 +39,7 @@ function loadStations() {
             </td>
             <td class="actions">
                 <button class="edit" onclick="editStation(${station.id})">✏️ Editar</button>
-                <button class="delete" onclick="confirmDeleteStation(${station.id})">🗑️ Borrar</button>
+                <button class="delete" onclick="openDeleteModal(${station.id})">🗑️ Borrar</button>
             </td>
         `;
 
@@ -46,6 +47,7 @@ function loadStations() {
     });
 }
 
+// Editar la estación seleccionada
 function editStation(id) {
     const station = stations.find(station => station.id === id);
     if (station) {
@@ -75,37 +77,55 @@ function editStation(id) {
             station.status = status;
 
             closeModal();
-            loadStations();
+            loadStations(); // Recargar la tabla
         };
     }
 }
 
+// Cerrar el modal de edición
 function closeModal() {
     document.getElementById("myModal").style.display = "none";
 }
 
-function confirmDeleteStation(id) {
-    if (confirm("¿Estás seguro de que deseas eliminar esta estación?")) {
+// Abrir el modal de confirmación de eliminación
+function openDeleteModal(id) {
+    const modal = document.getElementById("deleteModal");
+    modal.style.display = "flex";
+    
+    // Guardar el id de la estación a eliminar
+    document.getElementById("confirmDelete").onclick = function() {
         deleteStation(id);
-    }
+        closeDeleteModal();
+    };
+    
+    document.getElementById("cancelDelete").onclick = closeDeleteModal;
 }
 
+// Cerrar el modal de eliminación
+function closeDeleteModal() {
+    document.getElementById("deleteModal").style.display = "none";
+}
+
+// Eliminar la estación seleccionada
 function deleteStation(id) {
     const index = stations.findIndex(station => station.id === id);
     if (index !== -1) {
         stations.splice(index, 1);
-        loadStations();
+        loadStations(); // Recargar la tabla
     }
 }
 
+// Cambiar el estado de la estación
 function toggleStatus(id) {
     const station = stations.find(station => station.id === id);
     if (station) {
         station.status = station.status === 'active' ? 'inactive' : 'active';
-        loadStations();
+        loadStations(); // Recargar la tabla
     }
 }
 
+// Evento para cerrar el modal de edición
 document.getElementById("closeModal").onclick = closeModal;
 
+// Cargar las estaciones cuando la página se carga
 window.onload = loadStations;

@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuarios</title>
+    <title>Gestión de Usuarios</title>
     <link rel="stylesheet" href="../public/css/styless.css">
-   
 </head>
 <body>
     <div class="container">
@@ -27,137 +26,137 @@
                 </ul>
             </nav>
         </aside>
+
         <main class="content">
             <header class="top-bar">
                 <button id="menu-toggle" class="menu-toggle">☰</button>
-                <input type="text" placeholder="Enter keyword">
+             
                 <div class="user-info">
                     <img src="../public/imagenes/user-avatar.png" alt="User Avatar">
                     <span>Adam Schwartz</span>
-                  
                 </div>
             </header>
+
             <section class="user-admin">
                 <h1>Usuarios</h1>
                 <div class="search-bar">
                     <input type="text" placeholder="Buscar por nombre">
                 </div>
-                <div class="user-cards" id="userCards">
-                    <!-- Tarjeta de usuario Andrés Moya -->
-                    <div class="user-card" data-id="1754702856">
-                        <div class="user-info">
-                            <h3>Andrés Moya</h3>
-                            <p>Email: andres.moya@gmail.com</p>
-                            <p>No. de celular: 0981239989</p>
-                            <p>Fecha de nacimiento: 1995-08-22</p>
-                            <p>Estado: <input type="checkbox" checked></p>
-                            <div class="actions">
-                                <button class="edit">✏️ Editar</button>
-                                <button class="delete">🗑️ Eliminar</button>
-                            </div>
-                        </div>
-                        <img src="../public/imagenes/persona1.jpeg" alt="Imagen de usuario">
-                    </div>
-                    <!-- Tarjeta de usuario Pedro Gomez -->
-                    <div class="user-card" data-id="1754702857">
-                        <div class="user-info">
-                            <h3>Pedro Gomez</h3>
-                            <p>Email: pedro.gomez@gmail.com</p>
-                            <p>No. de celular: 0981239989</p>
-                            <p>Fecha de nacimiento: 1995-08-22</p>
-                            <p>Estado: <input type="checkbox" checked></p>
-                            <div class="actions">
-                                <button class="edit">✏️ Editar</button>
-                                <button class="delete">🗑️ Eliminar</button>
-                            </div>
-                        </div>
-                        <img src="../public/imagenes/persona2.jpeg" alt="Imagen de usuario">
-                    </div>
-                    <!-- Tarjeta de usuario Jose Saenz -->
-                    <div class="user-card" data-id="1754702858">
-                        <div class="user-info">
-                            <h3>Jose Saenz</h3>
-                            <p>Email: jose.gomez@gmail.com</p>
-                            <p>No. de celular: 0981239989</p>
-                            <p>Fecha de nacimiento: 1995-08-22</p>
-                            <p>Estado: <input type="checkbox" checked></p>
-                            <div class="actions">
-                                <button class="edit">✏️ Editar</button>
-                                <button class="delete">🗑️ Eliminar</button>
-                            </div>
-                        </div>
-                        <img src="../public/imagenes/persona3.jpg" alt="Imagen de usuario">
-                    </div>
-                    <!-- Tarjeta de usuario Marcos Gomez -->
-                    <div class="user-card" data-id="1754702859">
-                        <div class="user-info">
-                            <h3>Marcos Gomez</h3>
-                            <p>Email: marcos.gomez@gmail.com</p>
-                            <p>No. de celular: 0981239989</p>
-                            <p>Fecha de nacimiento: 1995-08-22</p>
-                            <p>Estado: <input type="checkbox" checked></p>
-                            <div class="actions">
-                                <button class="edit">✏️ Editar</button>
-                                <button class="delete">🗑️ Eliminar</button>
-                            </div>
-                        </div>
-                        <img src="../public/imagenes/persona4.jpeg" alt="Imagen de usuario">
-                    </div>
-                    <!-- Tarjeta de usuario Maria Fernandez -->
-                    <div class="user-card" data-id="1754702860">
-                        <div class="user-info">
-                            <h3>Maria Fernandez</h3>
-                            <p>Email: maria.fernandez@gmail.com</p>
-                            <p>No. de celular: 0981239990</p>
-                            <p>Fecha de nacimiento: 1994-05-10</p>
-                            <p>Estado: <input type="checkbox" checked></p>
-                            <div class="actions">
-                                <button class="edit">✏️ Editar</button>
-                                <button class="delete">🗑️ Eliminar</button>
-                            </div>
-                        </div>
-                        <img src="../public/imagenes/persona5.jpg" alt="Imagen de usuario">
-                    </div>
-                    <!-- Tarjeta de usuario Laura Perez -->
-                    <div class="user-card" data-id="1754702861">
-                        <div class="user-info">
-                            <h3>Laura Perez</h3>
-                            <p>Email: laura.perez@gmail.com</p>
-                            <p>No. de celular: 0981239991</p>
-                            <p>Fecha de nacimiento: 1993-04-15</p>
-                            <p>Estado: <input type="checkbox" checked></p>
-                            <div class="actions">
-                                <button class="edit">✏️ Editar</button>
-                                <button class="delete">🗑️ Eliminar</button>
-                            </div>
-                        </div>
-                        <img src="../public/imagenes/persona6.jpg" alt="Imagen de usuario">
-                    </div>
+                <div class="table-container">
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>No. de celular</th>
+                                <th>Fecha de nacimiento</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src="../public/imagenes/persona1.jpeg" alt="Icon" style="width: 30px; height: 30px;"></td>
+                                <td>1</td>
+                                <td>Andrés Moya</td>
+                                <td>andres.moya@gmail.com</td>
+                                <td>0981239989</td>
+                                <td>1995-08-22</td>
+                                <td><button class="badge active">Activo</button></td>
+                                <td>
+                                    <button class="btn edit">✏️ Editar</button>
+                                    <button class="btn delete">🗑️ Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><img src="../public/imagenes/persona2.jpeg" alt="Icon" style="width: 30px; height: 30px;"></td>
+                                <td>2</td>
+                                <td>Andrés Moya</td>
+                                <td>andres.moya@gmail.com</td>
+                                <td>0981239989</td>
+                                <td>1995-08-22</td>
+                                <td><button class="badge active">Activo</button></td>
+                                <td>
+                                    <button class="btn edit">✏️ Editar</button>
+                                    <button class="btn delete">🗑️ Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><img src="../public/imagenes/persona3.jpg" alt="Icon" style="width: 30px; height: 30px;"></td>
+                                <td>3</td>
+                                <td>Andrés Moya</td>
+                                <td>andres.moya@gmail.com</td>
+                                <td>0981239989</td>
+                                <td>1995-08-22</td>
+                                <td><button class="badge active">Activo</button></td>
+                                <td>
+                                    <button class="btn edit">✏️ Editar</button>
+                                    <button class="btn delete">🗑️ Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><img src="../public/imagenes/persona4.jpeg" alt="Icon" style="width: 30px; height: 30px;"></td>
+                                <td>4</td>
+                                <td>Andrés Moya</td>
+                                <td>andres.moya@gmail.com</td>
+                                <td>0981239989</td>
+                                <td>1995-08-22</td>
+                                <td><button class="badge active">Activo</button></td>
+                                <td>
+                                    <button class="btn edit">✏️ Editar</button>
+                                    <button class="btn delete">🗑️ Eliminar</button>
+                                </td>
+                            </tr>
+                            <!-- Más filas de ejemplo -->
+                        </tbody>
+                    </table>
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- Modal de edición de usuario -->
-    <div id="editModal" class="modal" style="display: none;">
+    <!-- Modal de Editar Usuario -->
+    <div id="editUserModal" class="modal">
         <div class="modal-content">
             <h2>Editar Usuario</h2>
-            <form id="editForm">
-                <label for="editName">Nombre:</label>
-                <input type="text" id="editName" required>
-                <br>
-                <label for="editEmail">Email:</label>
-                <input type="email" id="editEmail" required>
-                <br>
-                <label for="editPhone">No. de celular:</label>
-                <input type="text" id="editPhone" required>
-                <br>
-                <label for="editBirthdate">Fecha de nacimiento:</label>
-                <input type="date" id="editBirthdate" required>
-                <br><br>
-                <button type="submit">Guardar Cambios</button>
-                <button type="button" id="cancelEdit">Cancelar</button>
+            <form id="editUserForm">
+                <label for="editUserName">Nombre:</label>
+                <input type="text" id="editUserName" required>
+                
+                <label for="editUserEmail">Correo electrónico:</label>
+                <input type="email" id="editUserEmail" required>
+                
+                <label for="editUserPhone">Teléfono:</label>
+                <input type="text" id="editUserPhone" required>
+                
+                <label for="editUserDob">Fecha de nacimiento:</label>
+                <input type="date" id="editUserDob" required>
+                
+                <label for="editUserStatus">Estado:</label>
+                <select id="editUserStatus" required>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+                
+                <div class="modal-buttons">
+                    <button type="button" class="save-btn">Guardar</button>
+                    <button type="button" id="cancelEditBtn" class="cancel-btn">Cancelar</button>
+                </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal de Eliminar Usuario -->
+    <div id="deleteUserModal" class="modal">
+        <div class="modal-content">
+            <h2>¿Estás seguro?</h2>
+            <p>Esta acción eliminará permanentemente al usuario.</p>
+            <div class="modal-buttons">
+                <button class="confirm-btn">Eliminar</button>
+                <button type="button" id="cancelDeleteBtn" class="cancel-btn">Cancelar</button>
+            </div>
         </div>
     </div>
 
